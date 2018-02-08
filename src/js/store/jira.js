@@ -3,10 +3,11 @@ const state = {
 };
 const getters = {};
 const mutations = {
-    SET_BOARD: (state, board) {
+    SET_BOARD(state, board) {
         state.board = board;
     }
 };
+
 const actions = {
     async fetchBoard() {
 
