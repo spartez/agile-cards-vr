@@ -8,6 +8,8 @@
     "dev": "webpack-dev-server"
   },
   "dependencies": {
+    "aframe-environment-component": "^1.0.0",
+    "aframe-text-geometry-component": "^0.5.1",
     "atlassian-connect-express": "^2.1.4",
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
