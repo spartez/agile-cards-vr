@@ -1,6 +1,6 @@
 <template>
     <a-entity :position="position">
-        <a-plane :width="width" :height="height" :color="background" shader="flat"></a-plane>
+        <a-plane :width="width" :height="height" :color="background"></a-plane>
         <a-text :width="width" :value="text" :color="color" align="center" :wrap-count="wrapCount"></a-text>
     </a-entity>
 </template>

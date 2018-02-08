@@ -1,6 +1,6 @@
 <template>
-    <a-entity :position="position">
-        <a-box position="0 1.5 0" src="#cork" :width="boardSize.width" height="2" depth="0.05" rotation="0 0 0" color="#fff" shader="flat"></a-box>
+    <a-entity :position="position" shadow>
+        <a-box position="0 1.5 0" src="#cork" :width="boardSize.width" height="2" depth="0.05" rotation="0 0 0" color="#fff"></a-box>
 
         <a-box position="-1.5 1.5 0" width=".05" height="2" depth="0.1" rotation="0 0 0" color="#fff" roughness="1" metalness=".2"></a-box>
         <a-box position="1.5 1.5 0" width=".05" height="2" depth="0.1" rotation="0 0 0" color="#fff" roughness="1" metalness=".2"></a-box>
