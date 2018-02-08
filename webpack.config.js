@@ -11,12 +11,7 @@ const config = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            js: 'babel-loader?presets[]=es2015'
-          }
-        }
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
