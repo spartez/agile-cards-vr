@@ -1,0 +1,18 @@
+{
+    "baseUrl": "{{localBaseUrl}}",
+    "key": "agile-cards-vr",
+    "description": "Agile Cards VR",
+    "name": "Agile Cards VR",
+    "vendor": {
+        "name": "Spartez",
+        "url": "http://www.spartez.com/"
+    },
+    "enableLicensing": true,
+    "authentication": {
+        "type": "jwt"
+    },
+    "scopes": ["READ", "WRITE", "ACT_AS_USER"],
+    "lifecycle": {
+        "installed": "/installed"
+    }
+}
