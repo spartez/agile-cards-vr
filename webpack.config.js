@@ -34,7 +34,13 @@ const config = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({ title: "Vue Template"})
+    new HtmlWebpackPlugin({
+        inject: false,
+        template: require('html-webpack-template'),
+        title: 'Vue Template',
+        appMountId: 'app',
+        headHtmlSnippet: `<script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>`
+    })
   ]
 };
 

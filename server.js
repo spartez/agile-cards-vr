@@ -5,11 +5,15 @@ app.use(express.static('public'));
 app.use(express.static('dist'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + '/dist/index.html');
+app.get('/', function(request, response) {
+    response.sendFile(__dirname + '/dist/index.html');
+});
+
+app.get('/board', (request, response) => {
+
 });
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+var listener = app.listen(process.env.PORT, function() {
+    console.log('Your app is listening on port ' + listener.address().port);
 });
