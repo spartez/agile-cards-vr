@@ -5,7 +5,9 @@ const cookieParser = require('cookie-parser');
 const errorHandler = require('errorhandler');
 const morgan = require('morgan');
 const axios = require('axios');
+const https = require('https');
 const { promisify } = require('util');
+const request = require('request');
 
 const getBoardColumns = async (httpClient, boardId) => {
     try {
@@ -74,6 +76,7 @@ module.exports = app => {
     app.use(morgan(devEnv ? 'dev' : 'combined'));
     // Include request parsers
     app.use(bodyParser.json());
+    app.use(bodyParser.raw());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
     // Gzip responses when appropriate
@@ -88,15 +91,19 @@ module.exports = app => {
         response.sendFile(__dirname + '/dist/index.html');
     });
 
-    app.get('/api/:jiraKey/board/:boardId', async (request, response) => {
+    app.get('/api/:jiraKey/board/:boardId', async (req, res) => {
         const httpClient = createHttpClient({
-            clientKey: request.params.jiraKey, //'jira:3d8d605d-3d60-4016-a435-b7375d2104ff',
+            clientKey: req.params.jiraKey, //'jira:3d8d605d-3d60-4016-a435-b7375d2104ff',
             addonKey: 'agile-cards-vr'
         });
-        const columns = await getBoardColumns(httpClient, request.params.boardId);
-        const issues = await getBoardIssues(httpClient, request.params.boardId);
+        const columns = await getBoardColumns(httpClient, req.params.boardId);
+        const issues = await getBoardIssues(httpClient, req.params.boardId);
         const board = createBoard(columns, issues);
-        response.send(board);
+        res.send(board);
+    });
+
+    app.get('/api/image', async (req, res) => {
+        req.pipe(request(req.query.url)).pipe(res);
     });
 
     if (devEnv) addon.register();

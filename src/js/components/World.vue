@@ -7,18 +7,11 @@
             <img id="story" src="../../img/story.svg">
             <img id="bug" src="../../img/bug.svg">
             <img id="defaultAvatar" src="../../img/default-avatar.png">
+            <img id="cork" src="../../img/cork.jpg">
         </a-assets>
-        <a-entity position="10 0 0">
-            <board> </board>
-            <a-entity rotation="0 180 0">
-                <a-camera look-controls>
-                    <card></card>
-                </a-camera>
-            </a-entity>
-            <!-- <a-sky  src="#bg" color="#ECECEC"></a-sky> -->
-        </a-entity>
-        <a-entity environment="preset: forest; numDressing: 500"></a-entity>
-        <a-entity light="type: ambient; color: #FFF"></a-entity>
+        <board position="0 0 -1.5" :board="board"></board>
+        <!-- <a-sky  src="#bg" color="#ECECEC"></a-sky> -->
+        <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #ffffff"></a-entity>
     </a-scene>
 </template>
 
@@ -26,24 +19,37 @@
 import Board from './Board.vue';
 import Card from './Card.vue';
 
-    export default {
-        components: { Board, Card },
 
-        data() {
-            return {
-                colorOfSphere: "#123456"
+export default {
+    components: { Board, Card },
+    data() {
+        return {
+            board: {
+                sprintGoal: 'Virtual stand-ups!',
+                columns: [
+                    {
+                        name: 'To-do'
+                    },
+                    {
+                        name: 'In progress'
+                    },
+                    {
+                        name: 'Done'
+                    }
+                ]
             }
-        },
-        methods: {
-            randomColor() {
-                const r = parseInt(Math.random() * 255);
-                const g = parseInt(Math.random() * 255);
-                const b = parseInt(Math.random() * 255);
-                this.colorOfSphere = `rgb(${r},${g},${b})`;
-            }
-        },
-        mounted(){
-            setInterval(this.randomColor, 1000);
+        };
+    },
+    methods: {
+        randomColor() {
+            const r = parseInt(Math.random() * 255);
+            const g = parseInt(Math.random() * 255);
+            const b = parseInt(Math.random() * 255);
+            this.colorOfSphere = `rgb(${r},${g},${b})`;
         }
-    };
+    },
+    mounted() {
+        setInterval(this.randomColor, 1000);
+    }
+};
 </script>
