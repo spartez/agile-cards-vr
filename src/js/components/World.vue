@@ -10,8 +10,19 @@
             <img id="cork" src="../../img/cork.jpg">
         </a-assets>
         <board position="0 0 -1.5" :board="board"></board>
+        <card position="-1.1 1.75 -1.474"></card>
+        <card position="-0.8 1.75 -1.474"></card>
+        <card position="-0.8 1.45 -1.474"></card>
+        
+        <card position="-0.15 1.75 -1.474"></card>
+        <card position="0.15 1.75 -1.474"></card>
+        
+        <card position="-1.1 1.75 -1.474"></card>
+        <card position="-0.8 1.75 -1.474"></card>
         <!-- <a-sky  src="#bg" color="#ECECEC"></a-sky> -->
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #ffffff"></a-entity>
+        
+        <a-camera rotation="15 45 0"></a-camera>
     </a-scene>
 </template>
 

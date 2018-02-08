@@ -1,8 +1,8 @@
 <template>
-  <a-entity>
+  <a-entity
+    :position="position">
     <a-entity 
       geometry="primitive: plane; height: 0.2; width: 0.2" 
-      position="0 0 -0.12"
       :material="{color: 'white', opacity: 1}">
       <a-image
         :src="`#${status}`"
@@ -24,7 +24,7 @@
         :value="key">
       </a-text>
       <a-text  
-        position="-0.085 0.35 0"
+        position="-0.085 0.045 0"
         baseline="top"
         width="0.18"
         wrap-count="30"
@@ -32,7 +32,7 @@
         :value="`Priority: ${priority}`">
       </a-text>
       <a-text  
-        position="-0.085 0.025 0"
+        position="-0.085 0.035 0"
         baseline="top"
         width="0.18"
         wrap-count="30"
@@ -68,8 +68,8 @@
 </template>
 
 <script>
-
   export default {
+    props: [ 'position' ],
     data() {
       return {
         key:"ACDC-199",
