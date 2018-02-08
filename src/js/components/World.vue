@@ -1,7 +1,6 @@
 <template>
     <a-scene>
         <a-assets>
-            <a-asset-item id="optimerBoldFont" src="src/fonts/helvetiker_regular.typeface.json"></a-asset-item>
             <img id="bg" src="../../img/360-2.jpg">
             <img id="task" src="../../img/task.svg">
             <img id="story" src="../../img/story.svg">
