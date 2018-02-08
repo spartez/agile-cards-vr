@@ -1,13 +1,21 @@
 <template>
   <div>
     <h1>Hello World</h1>
+    <World></World>
   </div>
 </template>
 
 <script>
+import World from './World.vue';
+  
 export default {
+  components: {World},
   data: function () {
     return {};
+  }
+  
+  mounted() {
+    //fetch(`https://foo:bar@spartez.atlassian.net`)
   }
 }
 </script>
