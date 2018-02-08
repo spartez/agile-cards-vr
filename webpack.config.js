@@ -8,6 +8,7 @@ const config = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'app.js'
     },
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -42,9 +43,7 @@ const config = {
         })
     ],
     devServer: {
-        // setup: app => {
-        //     api(app);
-        // }
+        disableHostCheck: true
     }
 };
 

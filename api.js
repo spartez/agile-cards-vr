@@ -45,7 +45,10 @@ const createBoard = (columns, issues) => {
             const matchingColumn = board.find(column => column.statuses.includes(statusId));
             matchingColumn.issues.push(issue);
         });
-        return board;
+        return {
+            sprintGoal: 'Virtual stand-ups!',
+            columns: board
+        };
     } catch (err) {
         console.log(err);
     }
@@ -107,4 +110,6 @@ module.exports = app => {
     });
 
     if (devEnv) addon.register();
+
+    setTimeout(() => addon.reloadDescriptor(), 1000);
 };

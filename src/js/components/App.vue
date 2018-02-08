@@ -7,15 +7,7 @@
 import World from './World.vue';
 
 export default {
-
-    components: { World },
-    data: function() {
-        return {};
-    },
-
-    mounted() {
-        //fetch(`https://foo:bar@spartez.atlassian.net`)
-    }
+    components: { World }
 };
 </script>
 

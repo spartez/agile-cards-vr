@@ -1,7 +1,7 @@
 {
     "expressErrorHandling": false,
     "development": {
-        "port": 3000,
+        "port": 8080,
         "store": {
             "adapter": "jugglingdb",
             "type": "sqlite3",

@@ -12,13 +12,13 @@
         <card position="-1.1 1.75 -1.474"></card>
         <card position="-0.8 1.75 -1.474"></card>
         <card position="-0.8 1.45 -1.474"></card>
-        
+
         <card position="-0.15 1.75 -1.474"></card>
         <card position="0.15 1.75 -1.474"></card>
-        
+
         <card position="-1.1 1.75 -1.474"></card>
         <card position="-0.8 1.75 -1.474"></card>
-        
+
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition:0 5 4; shadow: true;shadowSize:10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
         <a-camera :rotation="rotationVal"></a-camera>
@@ -31,26 +31,12 @@ import { mapGetters } from 'vuex';
 
 import Board from './Board.vue';
 import Card from './Card.vue';
+import { mapGetters } from 'vuex';
 
 export default {
     components: { Board, Card },
-    data() {
-        return {
-            board: {
-                sprintGoal: 'Virtual stand-ups!',
-                columns: [
-                    {
-                        name: 'To-do'
-                    },
-                    {
-                        name: 'In progress'
-                    },
-                    {
-                        name: 'Done'
-                    }
-                ]
-            }
-        };
+    computed: {
+        ...mapGetters(['board'])
     },
     computed: {
       ...mapGetters(['rotation']),
