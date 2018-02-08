@@ -21,21 +21,21 @@
         
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition:0 5 4; shadow: true;shadowSize:10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
-        <a-camera :rotation="rotation"></a-camera>
+        <a-camera :rotation="rotationVal"></a-camera>
         <a-light type="ambient" intensity="0.2"></a-light>
     </a-scene>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import Board from './Board.vue';
 import Card from './Card.vue';
-
 
 export default {
     components: { Board, Card },
     data() {
         return {
-            rotation: "15 45 0",
             board: {
                 sprintGoal: 'Virtual stand-ups!',
                 columns: [
@@ -51,6 +51,13 @@ export default {
                 ]
             }
         };
+    },
+    computed: {
+      ...mapGetters(['rotation']),
+
+      rotationVal() {
+        return  this.rotation;
+      }
     },
     methods: {
         randomColor() {

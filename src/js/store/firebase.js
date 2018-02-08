@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 
 const eventBus = new Vue();
 
-let roationRef;
+let rotationRef;
 
 const config = {
   apiKey: "AIzaSyDXXtRY3pMh8Qu3e7dWkQ3TF2yMjDRYbUY",
@@ -18,11 +18,17 @@ firebase.initializeApp(config);
 
 const db = firebase.database();
 
+db.ref('rotation').once('value', (snapshot) => {
+  eventBus.$emit('rotation', snapshot.val() || {});
+} );
+
+subscribeForRotation();
+
 export async function subscribeForRotation() {
   if (rotationRef) {
     rotationRef.off('value');
   }
-  rotationRef = db.child('rotation');
+  rotationRef = db.ref('rotation');
   rotationRef.on('value', snapshot => {
     eventBus.$emit('rotation', snapshot.val() || {});
   }, console.error);

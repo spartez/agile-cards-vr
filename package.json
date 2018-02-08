@@ -12,6 +12,7 @@
     "aframe-text-geometry-component": "^0.5.1",
     "atlassian-connect-express": "^2.1.4",
     "axios": "^0.17.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
     "cookie-parser": "^1.4.3",
