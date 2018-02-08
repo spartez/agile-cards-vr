@@ -88,7 +88,7 @@ module.exports = app => {
         response.sendFile(__dirname + '/dist/index.html');
     });
 
-    app.get('/:jiraKey/board/:boardId', async (request, response) => {
+    app.get('/api/:jiraKey/board/:boardId', async (request, response) => {
         const httpClient = createHttpClient({
             clientKey: request.params.jiraKey, //'jira:3d8d605d-3d60-4016-a435-b7375d2104ff',
             addonKey: 'agile-cards-vr'

@@ -9,12 +9,12 @@
         }
     },
     "production": {
-        "port": "$PORT",
-        "localBaseUrl": "https://your-subdomain.herokuapp.com",
+        "port": 3000,
+        "localBaseUrl": "https://agile-cards-vr.glitch.me",
         "store": {
-            "type": "postgres",
-
-            "url": "$DATABASE_URL"
+            "adapter": "jugglingdb",
+            "type": "sqlite3",
+            "database": "store.db"
         },
         "whitelist": ["*.jira-dev.com", "*.atlassian.net", "*.jira.com"]
     }
