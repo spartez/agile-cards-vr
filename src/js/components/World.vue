@@ -20,11 +20,10 @@
         <card position="-1.1 1.75 -1.474"></card>
         <card position="-0.8 1.75 -1.474"></card>
         
-        <card position="0 1 -2" rotation="-90 0 0"></card>
-        <!-- <a-sky  src="#bg" color="#ECECEC"></a-sky> -->
-        <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition:0 10 0; shadow:true; shadowSize:20"></a-entity>
-        <a-entity light="type:directional; position:0 -5 0; color:#fff; intesity:0.8; castShadow: true"></a-entity>
+        <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition:0 5 4; shadow: true;shadowSize:10"></a-entity>
+        <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
         <a-camera rotation="15 45 0"></a-camera>
+        <a-light type="ambient" intensity="0.2"></a-light>
     </a-scene>
 </template>
 
