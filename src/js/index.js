@@ -1,3 +1,7 @@
+import 'aframe';
+import 'aframe-environment-component';
+import 'aframe-text-geometry-component';
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './components/App.vue';

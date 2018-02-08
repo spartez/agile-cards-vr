@@ -1,7 +1,12 @@
 <template>
     <a-scene>
         <a-assets>
+            <a-asset-item id="optimerBoldFont" src="src/fonts/helvetiker_regular.typeface.json"></a-asset-item>
             <img id="bg" src="../../img/360-2.jpg">
+            <img id="task" src="../../img/task.svg">
+            <img id="story" src="../../img/story.svg">
+            <img id="bug" src="../../img/bug.svg">
+            <img id="defaultAvatar" src="../../img/default-avatar.png">
             <img id="cork" src="../../img/cork.jpg">
         </a-assets>
         <board position="0 0 -1.5" :board="board"></board>
@@ -12,10 +17,11 @@
 
 <script>
 import Board from './Board.vue';
+import Card from './Card.vue';
+
 
 export default {
-    components: { Board },
-
+    components: { Board, Card },
     data() {
         return {
             board: {

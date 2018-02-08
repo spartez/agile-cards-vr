@@ -25,7 +25,7 @@ const config = {
                 ]
             },
             {
-                test: /\.(jpg|json|png)$/,
+                test: /\.(jpg|json|png|svg)$/,
                 use: 'file-loader?name=[name].[ext]'
             },
             {
@@ -39,11 +39,7 @@ const config = {
             inject: false,
             template: require('html-webpack-template'),
             title: 'Vue Template',
-            appMountId: 'app',
-            headHtmlSnippet: `
-                <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-                <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
-            `
+            appMountId: 'app'
         })
     ],
     devServer: {

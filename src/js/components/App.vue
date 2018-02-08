@@ -1,6 +1,7 @@
 <template>
   <div>
-    <world></world>
+    <world>
+    </world>
   </div>
 </template>
 
