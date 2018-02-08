@@ -8,7 +8,7 @@
 import World from './World.vue';
 
 export default {
-<<<<<<< HEAD
+
     components: { World },
     data: function() {
         return {};
@@ -18,17 +18,6 @@ export default {
         //fetch(`https://foo:bar@spartez.atlassian.net`)
     }
 };
-=======
-  components: {World},
-  data: function () {
-    return {};
-  },
-  
-  mounted() {
-    //fetch(`https://foo:bar@spartez.atlassian.net`)
-  }
-}
->>>>>>> waitign
 </script>
 
 <style scoped>
