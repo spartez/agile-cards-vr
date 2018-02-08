@@ -12,7 +12,7 @@ export default {
   components: {World},
   data: function () {
     return {};
-  }
+  },
   
   mounted() {
     //fetch(`https://foo:bar@spartez.atlassian.net`)
