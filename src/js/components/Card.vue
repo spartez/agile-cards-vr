@@ -1,8 +1,8 @@
 <template>
   <a-entity
     :position="position">
-    <a-entity 
-      geometry="primitive: plane; height: 0.2; width: 0.2" 
+    <a-entity
+      geometry="primitive: plane; height: 0.2; width: 0.2"
       :material="{color: 'white', opacity: 1}">
       <a-image
         :src="`#${status}`"
@@ -11,19 +11,19 @@
         position="-0.07 0.069 0.01"
       ></a-image>
       <a-image
-        src="#defaultAvatar"
+        :src="assigneeAvatar"
         width="0.02"
         height="0.02"
         position="0.068 0.069 0.01"
       ></a-image>
-      <a-text 
+      <a-text
         width="0.5"
         baseline="top"
         position="-0.065 0.081 0"
         color="black"
         :value="key">
       </a-text>
-      <a-text  
+      <a-text
         position="-0.085 0.045 0"
         baseline="top"
         width="0.18"
@@ -31,7 +31,7 @@
         color="black"
         :value="`Priority: ${priority}`">
       </a-text>
-      <a-text  
+      <a-text
         position="-0.085 0.035 0"
         baseline="top"
         width="0.18"
@@ -39,7 +39,7 @@
         color="black"
         :value="`Assignee: ${assignee}`">
       </a-text>
-      <a-text  
+      <a-text
         position="-0.085 0.015 0"
         baseline="top"
         width="0.18"
@@ -47,7 +47,7 @@
         color="black"
         :value="title">
       </a-text>
-      <a-text  
+      <a-text
         position="-0.0855 0.015 0"
         baseline="top"
         width="0.18"
@@ -55,7 +55,7 @@
         color="black"
         :value="title">
       </a-text>
-      <a-text  
+      <a-text
         position="-0.085 -0.015 0"
         baseline="top"
         width="0.18"
@@ -69,22 +69,56 @@
 
 <script>
   export default {
-    props: [ 'position' ],
+    props: {
+        position: String,
+        issue: Object
+    },
     data() {
       return {
-        key:"ACDC-199",
-        status: "bug",
-        assignee: "Victor Debone",
-        priority: "1",
-        title: "We cannot deliver so much in 24hrs, can we?",
-        description: "Select from one of A-Frame’s built-in fonts. These fonts will be loaded in from over a CDN. If you want your application to work better offline, download these fonts locally and point to them via a URL."
+        // key:"ACDC-199",
+        // status: "bug",
+        // assignee: "Victor Debone",
+        // priority: "1",
+        // title: "We cannot deliver so much in 24hrs, can we?",
+        // description: "Select from one of A-Frame’s built-in fonts. These fonts will be loaded in from over a CDN. If you want your application to work better offline, download these fonts locally and point to them via a URL."
       }
+    },
+    computed: {
+        key() {
+            return this.issue.key;
+        },
+        fields() {
+            return this.issue.fields || {};
+        },
+        status() {
+            const name = (this.fields.status && this.fields.status.name) || 'bug';
+            return name.toLowerCase();
+        },
+        priority() {
+            return this.fields.priority && this.fields.priority.name;
+        },
+        description() {
+            return this.fields.description;
+        },
+        title() {
+            return this.fields.summary;
+        },
+        assignee() {
+            return this.fields.assignee || {};
+        },
+        assigneeName() {
+            return this.assignee.name;
+        },
+        assigneeAvatar() {
+            const avatarUrl = this.assignee.avatarUrl || {};
+            return `/api/image?url=${avatarUrl['48x48']}`;
+        }
     },
     methods: {
       textGeometry(text) {
         return `value: ${text}; size: 0.01; height: 0.005`;
       }
     }
-    
+
   }
 </script>

@@ -19,19 +19,21 @@
 
         <a-entity v-for="(column, index) in board.columns" :position="columnPosition(index)" :key="index">
             <text-label :text="column.name" width=".4" height=".1" background="#fff" color="#000" wrapCount="10"></text-label>
+            <card v-for="(issue, cardIndex) in column.issues" :position="cardPosition(cardIndex)" :issue="issue"></card>
         </a-entity>
     </a-entity>
 </template>
 
 <script>
 import TextLabel from './TextLabel.vue';
+import Card from './Card.vue';
 
 const BOARD_WIDTH = 3;
 const BOARD_HEIGHT = 2;
 
 export default {
     components: {
-        TextLabel
+        TextLabel, Card
     },
 
     props: {
@@ -63,9 +65,19 @@ export default {
     },
 
     methods: {
+        columnXPosition(index) {
+            return (index/this.columnsCount * this.boardSize.width) - (this.boardSize.width / 2) + this.columnWidth / 2;
+        },
+
         columnPosition(index) {
-            const x = (index/this.columnsCount * this.boardSize.width) - (this.boardSize.width / 2) + this.columnWidth / 2;
+            const x = this.columnXPosition(index);
             return `${x} 2 0.026`;
+        },
+
+        cardPosition(cardIndex) {
+            const x = ((cardIndex % 2) * this.columnWidth * 0.25) - 0.1;
+            const y = (Math.floor(cardIndex / 2) * -.3) -.5;
+            return `${x} ${y} 0`;
         }
     }
 };
