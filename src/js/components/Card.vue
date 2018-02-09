@@ -2,7 +2,9 @@
   <a-entity
     :position="position">
     <a-entity 
-      geometry="primitive: plane; height: 0.2; width: 0.2" 
+      geometry="primitive: plane; height: 0.2; width: 0.2"
+      data-something="nice?"
+      @click="cardClicked"
       :material="{color: 'white', opacity: 1}">
       <a-image
         :src="`#${status}`"
@@ -68,6 +70,8 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex';
+  
   export default {
     props: [ 'position' ],
     data() {
@@ -81,8 +85,14 @@
       }
     },
     methods: {
+      ...mapActions(['cardPreview']),
+      
       textGeometry(text) {
         return `value: ${text}; size: 0.01; height: 0.005`;
+      },
+      cardClicked(e) {
+        this.cardPreview(2);
+        console.log(e.detail.intersection.point);
       }
     }
     

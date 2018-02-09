@@ -1,5 +1,5 @@
 <template>
-    <a-scene>
+    <a-scene @click="removePreviewCard">
         <a-assets>
             <img id="bg" src="../../img/360-2.jpg">
             <img id="task" src="../../img/task.svg">
@@ -9,7 +9,7 @@
             <img id="cork" src="../../img/cork.jpg">
         </a-assets>
         <board position="0 0 -1.5" :board="board"></board>
-        <card position="-1.1 1.75 -1.474"></card>
+        <card  position="-1.1 1.75 -1.474"></card>
         <card position="-0.8 1.75 -1.474"></card>
         <card position="-0.8 1.45 -1.474"></card>
         
@@ -21,13 +21,19 @@
         
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition:0 5 4; shadow: true;shadowSize:10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
-        <a-camera :rotation="rotationVal"></a-camera>
+        <a-camera user-height="0.4" :rotation="rotation">
+          <card v-if="userCardPreview" position="-0.15 -0.07 -0.2"></card>
+          <a-cursor>
+            <a-animation begin="click" easing="ease-in" attribute="scale" dur="150"
+               fill="forwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
+          </a-cursor>
+        </a-camera>
         <a-light type="ambient" intensity="0.2"></a-light>
     </a-scene>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import Board from './Board.vue';
 import Card from './Card.vue';
@@ -53,13 +59,19 @@ export default {
         };
     },
     computed: {
-      ...mapGetters(['rotation']),
+      ...mapGetters(['userRotation', 'userCardPreview']),
 
-      rotationVal() {
-        return  this.rotation;
+      rotation() {
+        return this.userRotation;
       }
     },
     methods: {
+        ...mapActions(['cardPreview']),
+        removePreviewCard() {
+            if(!--this.userCardPreview) {
+                this.cardPreview(0);
+            }
+        },  
         randomColor() {
             const r = parseInt(Math.random() * 255);
             const g = parseInt(Math.random() * 255);
