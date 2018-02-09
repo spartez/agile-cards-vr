@@ -43,7 +43,12 @@ const config = {
         })
     ],
     devServer: {
-        disableHostCheck: true
+        disableHostCheck: true,
+        proxy: {
+            '/': {
+                target: 'http://localhost:3000'
+            }
+        }
     }
 };
 

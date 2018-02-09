@@ -8,7 +8,6 @@ const getters = {
 };
 const mutations = {
     SET_BOARD(state, board) {
-        console.log('SET_BOARD', board);
         state.board = board;
     }
 };
@@ -16,7 +15,6 @@ const mutations = {
 const actions = {
     async fetchBoard({ commit, rootState }) {
         const { data } = await axios.get(`/api/${rootState.jiraKey}/board/${rootState.boardId}`);
-        console.log('fetchBoard', data);
         commit('SET_BOARD', data);
     }
 };

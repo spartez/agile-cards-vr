@@ -8,6 +8,15 @@
             "database": "store.db"
         }
     },
+    "staging": {
+        "port": 3000,
+        "localBaseUrl": "https://4758be6b.eu.ngrok.io",
+        "store": {
+            "adapter": "jugglingdb",
+            "type": "sqlite3",
+            "database": "store.db"
+        }
+    },
     "production": {
         "port": 3000,
         "localBaseUrl": "https://agile-cards-vr.glitch.me",

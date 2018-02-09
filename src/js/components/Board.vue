@@ -19,7 +19,7 @@
 
         <a-entity v-for="(column, index) in board.columns" :position="columnPosition(index)" :key="index">
             <text-label :text="column.name" width=".4" height=".1" background="#fff" color="#000" wrapCount="10"></text-label>
-            <card v-for="(issue, cardIndex) in column.issues" :position="cardPosition(cardIndex)" :issue="issue"></card>
+            <card v-for="(issue, cardIndex) in column.issues" :position="cardPosition(cardIndex)" :issue="issue" :key="cardIndex"></card>
         </a-entity>
     </a-entity>
 </template>
@@ -75,8 +75,8 @@ export default {
         },
 
         cardPosition(cardIndex) {
-            const x = ((cardIndex % 2) * this.columnWidth * 0.25) - 0.1;
-            const y = (Math.floor(cardIndex / 2) * -.3) -.5;
+            const x = ((cardIndex % 2) * .4) - 0.2;
+            const y = (Math.floor(cardIndex / 2) * -.4) -.5;
             return `${x} ${y} 0`;
         }
     }

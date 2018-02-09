@@ -3,18 +3,19 @@
     :position="position">
     <a-entity
       geometry="primitive: plane; height: 0.2; width: 0.2"
+      scale="1.5 1.5 1.5"
       :material="{color: 'white', opacity: 1}">
       <a-image
-        :src="`#${status}`"
-        width="0.01"
-        height="0.01"
-        position="-0.07 0.069 0.01"
+        :src="issueTypeIcon"
+        width="0.02"
+        height="0.02"
+        position="-0.08 0.075 0.001"
       ></a-image>
       <a-image
         :src="assigneeAvatar"
-        width="0.02"
-        height="0.02"
-        position="0.068 0.069 0.01"
+        width="0.03"
+        height="0.03"
+        position="0.068 0.069 0.001"
       ></a-image>
       <a-text
         width="0.5"
@@ -40,29 +41,21 @@
         :value="`Assignee: ${assignee}`">
       </a-text>
       <a-text
-        position="-0.085 0.015 0"
-        baseline="top"
-        width="0.18"
-        wrap-count="30"
-        color="black"
-        :value="title">
-      </a-text>
-      <a-text
         position="-0.0855 0.015 0"
         baseline="top"
         width="0.18"
-        wrap-count="30"
+        wrap-count="25"
         color="black"
         :value="title">
       </a-text>
-      <a-text
+      <!-- <a-text
         position="-0.085 -0.015 0"
         baseline="top"
         width="0.18"
         wrap-count="35"
         color="black"
         :value="description">
-      </a-text>
+      </a-text> -->
     </a-entity>
   </a-entity>
 </template>
@@ -90,9 +83,13 @@
         fields() {
             return this.issue.fields || {};
         },
-        status() {
-            const name = (this.fields.status && this.fields.status.name) || 'bug';
+        type() {
+            const name = (this.fields.issuetype && this.fields.issuetype.name) || 'bug';
             return name.toLowerCase();
+        },
+        issueTypeIcon() {
+            const issueType = this.fields && this.fields.issuetype || {};
+            return `/api/image?url=${encodeURIComponent(issueType.iconUrl)}`;
         },
         priority() {
             return this.fields.priority && this.fields.priority.name;
@@ -110,8 +107,8 @@
             return this.assignee.name;
         },
         assigneeAvatar() {
-            const avatarUrl = this.assignee.avatarUrl || {};
-            return `/api/image?url=${avatarUrl['48x48']}`;
+            const avatarUrls = this.assignee.avatarUrls || {};
+            return `/api/image?url=${encodeURIComponent(avatarUrls['48x48'])}`;
         }
     },
     methods: {
