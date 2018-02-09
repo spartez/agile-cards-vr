@@ -5,10 +5,11 @@ import jira from './jira';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
     state: {
         jiraKey: undefined,
-        boardId: undefined
+        boardId: undefined,
+        rotation: "15 45 0"
     },
     mutations: {
         SET_JIRA_KEY(state, key) {
@@ -16,21 +17,14 @@ export default new Vuex.Store({
         },
         SET_BOARD_ID(state, boardId) {
             state.boardId = boardId;
+        },
+        updateRotation(state, value) {
+            state.rotation = value;
         }
     },
     modules: {
         jira
     },
-    state: {
-        rotation: "15 45 0"
-    },
-
-    mutations: {
-        updateRotation(state, value) {
-            state.rotation = value;
-        }
-    },
-
     getters: {
         rotation: state => state.rotation
     }

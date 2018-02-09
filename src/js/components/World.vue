@@ -9,15 +9,6 @@
             <img id="cork" src="../../img/cork.jpg">
         </a-assets>
         <board position="0 0 -1.5" :board="board"></board>
-        <card position="-1.1 1.75 -1.474"></card>
-        <card position="-0.8 1.75 -1.474"></card>
-        <card position="-0.8 1.45 -1.474"></card>
-
-        <card position="-0.15 1.75 -1.474"></card>
-        <card position="0.15 1.75 -1.474"></card>
-
-        <card position="-1.1 1.75 -1.474"></card>
-        <card position="-0.8 1.75 -1.474"></card>
 
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition:0 5 4; shadow: true;shadowSize:10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
@@ -27,8 +18,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 import Board from './Board.vue';
 import Card from './Card.vue';
 import { mapGetters } from 'vuex';
@@ -36,25 +25,11 @@ import { mapGetters } from 'vuex';
 export default {
     components: { Board, Card },
     computed: {
-        ...mapGetters(['board'])
-    },
-    computed: {
-      ...mapGetters(['rotation']),
+      ...mapGetters(['board', 'rotation']),
 
       rotationVal() {
-        return  this.rotation;
+        return this.rotation;
       }
-    },
-    methods: {
-        randomColor() {
-            const r = parseInt(Math.random() * 255);
-            const g = parseInt(Math.random() * 255);
-            const b = parseInt(Math.random() * 255);
-            this.colorOfSphere = `rgb(${r},${g},${b})`;
-        }
-    },
-    mounted() {
-        setInterval(this.randomColor, 1000);
     }
 };
 </script>
