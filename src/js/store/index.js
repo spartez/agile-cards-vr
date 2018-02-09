@@ -12,7 +12,7 @@ const store = new Vuex.Store({
         userKey: "",
         isCardPreview: 0,
         currentCardPreview: {},
-        users: []
+        users: {}
     },
     mutations: {
         SET_JIRA_KEY(state, key) {
@@ -33,24 +33,30 @@ const store = new Vuex.Store({
         },
         removeCardPreview(state) {
             state.isCardPreview = false;
+        },
+        updateUser(state, user) {
+            state.users[user.userKey] = user;
+        },
+        removeUser(state, user) {
+            state.users[user.userKey] = undefined;
         }
     },
-    
+
     actions: {
         cardPreview({ commit, getters }, {column, index}) {
             commit('updateCardPreview', getters.board.columns[column].issues[index]);
         },
-        userChanged() {
-          // updates rotation for the correct user
-            debugger;
+        userChanged({ commit }, user) {
+            commit('updateUser', user);
         },
-        userAdded() {
-            // add user entry and give a position on the scene
-            debugger;
+        userAdded({ commit }, user) {
+            commit('updateUser', user);
         },
-        userRemoved() {
-          // remove user entry
-            debugger;
+        userRemoved({ commit }, user) {
+            commit('removeUser', user);
+        },
+        updateRotation({ state }, rotation) {
+            firebaseState.setUserRotation(state.userKey, rotation);
         }
     },
     modules: {

@@ -38,10 +38,10 @@ const db = firebase.database().ref('users');
 
 export async function startFirebase(userKey) {
   setActiveUser(userKey);
-  
-  db.on('child_added', snapshot => eventBus.$emit('user-added', snapshot.val()));  
-  db.on('child_removed', snapshot => eventBus.$emit('user-removed', snapshot.key));  
-  db.on('child_changed', snapshot => eventBus.$emit('user-changed', snapshot.val()));  
+
+  db.on('child_added', snapshot => eventBus.$emit('user-added', snapshot.val()));
+  db.on('child_removed', snapshot => eventBus.$emit('user-removed', snapshot.key));
+  db.on('child_changed', snapshot => eventBus.$emit('user-changed', snapshot.val()));
 }
 
 export async function setActiveUser(userKey) {
@@ -54,6 +54,10 @@ export async function setActiveUser(userKey) {
         await instanceRef.onDisconnect().remove();
         instanceRef.update({ userKey });
     });
+}
+
+export async function setUserRotation(userKey, rotation) {
+    db.child(sanitizeFirebasePath(userKey)).child('rotation').set(rotation || {});
 }
 
 /*db.ref('rotation').once('value', (snapshot) => {
