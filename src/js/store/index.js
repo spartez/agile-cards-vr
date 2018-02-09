@@ -41,12 +41,15 @@ const store = new Vuex.Store({
             commit('updateCardPreview', getters.board.columns[column].issues[index]);
         },
         userChanged() {
+          // updates rotation for the correct user
             debugger;
         },
         userAdded() {
+            // add user entry and give a position on the scene
             debugger;
         },
         userRemoved() {
+          // remove user entry
             debugger;
         }
     },

@@ -9,6 +9,8 @@
             <img id="cork" src="../../img/cork.jpg">
         </a-assets>
         <board position="0 0 -1.5" :board="board"></board>
+        
+        <user position="0 0 1"></user>
 
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition: 0 5 4; shadow: true; shadowSize: 10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
