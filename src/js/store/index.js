@@ -9,6 +9,7 @@ const store = new Vuex.Store({
     state: {
         jiraKey: undefined,
         boardId: undefined,
+        cardPreview: 0,
         rotation: "15 45 0"
     },
     mutations: {
@@ -20,13 +21,23 @@ const store = new Vuex.Store({
         },
         updateRotation(state, value) {
             state.rotation = value;
+        },
+        updateCardPreview(state, value) {
+            state.cardPreview = value;
+        }
+    },
+    
+    actions: {
+        cardPreview({ commit }, card) {
+            commit('updateCardPreview', card);
         }
     },
     modules: {
         jira
     },
     getters: {
-        rotation: state => state.rotation
+        userRotation: state => state.rotation,
+        userCardPreview: state => state.cardPreview
     }
 });
 

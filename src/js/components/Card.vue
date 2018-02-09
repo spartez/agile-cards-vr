@@ -3,6 +3,8 @@
     :position="position">
     <a-entity
       geometry="primitive: plane; height: 0.2; width: 0.2"
+      :data-card-id="id"
+      @click="cardClicked"
       scale="1.5 1.5 1.5"
       :material="{color: 'white', opacity: 1}">
       <a-image
@@ -61,6 +63,10 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex';
+  
+  
+  
   export default {
     props: {
         position: String,
@@ -68,6 +74,7 @@
     },
     data() {
       return {
+        // id: 1,
         // key:"ACDC-199",
         // status: "bug",
         // assignee: "Victor Debone",
@@ -112,8 +119,14 @@
         }
     },
     methods: {
+      ...mapActions(['cardPreview']),
+      
       textGeometry(text) {
         return `value: ${text}; size: 0.01; height: 0.005`;
+      },
+      cardClicked(e) {
+        console.log('card', this.id);
+        this.cardPreview(this.id);
       }
     }
 
