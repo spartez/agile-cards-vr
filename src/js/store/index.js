@@ -12,7 +12,7 @@ const store = new Vuex.Store({
         userKey: "",
         isCardPreview: 0,
         currentCardPreview: {},
-        rotation: "15 45 0"
+        users: []
     },
     mutations: {
         SET_JIRA_KEY(state, key) {
@@ -39,6 +39,15 @@ const store = new Vuex.Store({
     actions: {
         cardPreview({ commit, getters }, {column, index}) {
             commit('updateCardPreview', getters.board.columns[column].issues[index]);
+        },
+        userChanged() {
+            debugger;
+        },
+        userAdded() {
+            debugger;
+        },
+        userRemoved() {
+            debugger;
         }
     },
     modules: {
@@ -51,6 +60,10 @@ const store = new Vuex.Store({
     }
 });
 
-firebaseState.onChangeRotation(rotation => store.commit('updateRotation', rotation));
+firebaseState.onChangeUser(userData => store.dispatch('userChanged', userData));
+firebaseState.onAddUser(userData => store.dispatch('userAdded', userData));
+firebaseState.onRemoveUser(userId => store.dispatch('userRemoved', userId));
+
+store.watch(state => state.userKey, firebaseState.startFirebase);
 
 module.exports = store;

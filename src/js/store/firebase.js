@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 
 const eventBus = new Vue();
 
-let rotationRef;
+let rotationRef, instanceRef;
 
 const config = {
   apiKey: "AIzaSyDXXtRY3pMh8Qu3e7dWkQ3TF2yMjDRYbUY",
@@ -36,32 +36,25 @@ firebase.initializeApp(config);
 
 const db = firebase.database().ref('users');
 
-function startFirebase(userKey) {
-  db.child(userKey).set({
-    
-  });
+export async function startFirebase(userKey) {
+  setActiveUser(userKey);
   
   db.on('child_added', snapshot => eventBus.$emit('user-added', snapshot.val()));  
   db.on('child_removed', snapshot => eventBus.$emit('user-removed', snapshot.key));  
   db.on('child_changed', snapshot => eventBus.$emit('user-changed', snapshot.val()));  
 }
 
-// From retros
-export async function setActiveUser(userName) {
+export async function setActiveUser(userKey) {
     firebase.database().ref('.info/connected').on('value', async snapshot => {
         if (!snapshot.val()) {
             return instanceRef && instanceRef.remove();
         }
 
-        const activeUserRef = activeUsersRef.child(sanitizeFirebasePath(userName));
-        activeUserRef.update({ userName });
-
-        instanceRef = activeUserRef.child('instances').push();
+        const instanceRef = db.child(sanitizeFirebasePath(userKey));
         await instanceRef.onDisconnect().remove();
-        instanceRef.set(true);
+        instanceRef.update({ userKey });
     });
 }
-
 
 /*db.ref('rotation').once('value', (snapshot) => {
   eventBus.$emit('rotation', snapshot.val() || {});
@@ -69,16 +62,15 @@ export async function setActiveUser(userName) {
 
 subscribeForRotation();
 */
-export async function subscribeForRotation() {
-  if (rotationRef) {
-    rotationRef.off('value');
-  }
-  rotationRef = db.ref('rotation');
-  rotationRef.on('value', snapshot => {
-    eventBus.$emit('rotation', snapshot.val() || {});
-  }, console.error);
+
+export function onChangeUser(listener) {
+  eventBus.$on('user-changed', listener);
 }
 
-export function onChangeRotation(listener) {
-  eventBus.$on('rotation', listener);
+export function onAddUser(listener) {
+  eventBus.$on('user-added', listener);
+}
+
+export function onRemoveUser(listener) {
+  eventBus.$on('user-removed', listener);
 }

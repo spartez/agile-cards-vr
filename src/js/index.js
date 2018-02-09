@@ -13,7 +13,9 @@ store.commit('SET_JIRA_KEY', params.jiraKey);
 store.commit('SET_BOARD_ID', params.boardId);
 store.dispatch('fetchBoard');
 
-//store.commit('SET_USER_KEY', params.userKey);
+if(params.userKey){
+  store.commit('SET_USER_KEY', params.userKey);
+}
 
 new Vue({
   el: document.getElementById('app'),
