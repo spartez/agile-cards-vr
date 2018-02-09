@@ -25,7 +25,7 @@ const config = {
                 ]
             },
             {
-                test: /\.(jpg|json|png|svg)$/,
+                test: /\.(jpg|json|png|svg|obj|mtl)$/,
                 use: 'file-loader?name=[name].[ext]'
             },
             {

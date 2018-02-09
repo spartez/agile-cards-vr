@@ -1,12 +1,6 @@
 <template>
   <a-entity
     :position="position">
-    <a-entity
-      geometry="primitive: plane; height: 0.2; width: 0.2"
-      :data-card-id="issue.id"
-      @click="cardClicked"
-      scale="1.5 1.5 1.5"
-      :material="{color: 'white', opacity: 1}">
       <!--<a-image
         :src="issueTypeIcon"
         width="0.02"
