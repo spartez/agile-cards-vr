@@ -12,11 +12,13 @@
         </a-assets>
         <board position="0 0 -1.5" :board="board"></board>
         <a-entity position="1.941 0 -0.941" scale="0.3 0.3 0.3" rotation="0 -45 0" obj-model="obj: #samu-obj; mtl: #samu-mtl"></a-entity>
-        <user position="0 0 1"></user>
+
+        <user v-for="(user, index) in otherUsers" :position="`${positions[index]} .9 0`" :user="user"></user>
+        <!-- <user :position="`1 .9 0`" :user="users['mnykiel']"></user> -->
 
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition: 0 5 4; shadow: true; shadowSize: 10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
-        <a-camera user-height="0.4" :rotation="rotation" @componentchanged="cameraChange">
+        <a-camera user-height="1.6" :rotation="rotation" @componentchanged="cameraChange">
           <card
             v-if="isCardPreview"
             position="0 -0.15 -0.31"
@@ -49,11 +51,18 @@ export default {
     data() {
       return {
         samuobj,
-        samumtl
+        samumtl,
+        positions: [1, -1, 2, -2, 3, -3]
       }
     },
     computed: {
-      ...mapGetters(['board', 'isCardPreview', 'currentCardPreview']),
+      ...mapGetters(['board', 'isCardPreview', 'currentCardPreview', 'users', 'userKey']),
+
+      otherUsers() {
+          const others = Object.keys(this.users).filter(key => key !== this.userKey).map(key => this.users[key]);
+          console.log(others);
+          return others;
+      },
 
       rotation() {
         return "0 0 0";//this.userRotation;

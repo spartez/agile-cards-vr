@@ -1,6 +1,13 @@
 <template>
   <a-entity
-    :position="position">
+    :position="position" v-if="user" :rotation="rotation">
+        <a-box width="0.5" depth="0.2" height="1.8" color="#ccc"></a-box>
+        <a-image
+          :src="assigneeAvatar"
+          width="0.5"
+          height="0.5"
+          position="0 .5 -.1001"
+        ></a-image>
       <!--<a-image
         :src="issueTypeIcon"
         width="0.02"
@@ -58,13 +65,21 @@
 
 <script>
   import {mapActions} from 'vuex';
+  import mnykiel from '../../img/mnykiel.jpg';
+  import debone from '../../img/debone.jpg';
+  import avatar from '../../img/default-avatar.png';
 
   export default {
     props: {
-        position: String
+        position: String,
+        user: Object,
     },
     data() {
       return {
+          avatars: {
+              mnykiel,
+              debone
+          }
         // id: 1,
         // key:"ACDC-199",
         // status: "bug",
@@ -76,11 +91,16 @@
     },
     computed: {
         assigneeName() {
-            //return this.assignee.name;
+            return this.user.userKey;
+        },
+        rotation() {
+            if (!this.user.rotation) return '0 0 0';
+            return `${this.user.rotation.x} ${this.user.rotation.y} ${this.user.rotation.z}`;
         },
         assigneeAvatar() {
+            return this.avatars[this.assigneeName] || avatar;
             //const avatarUrls = this.assignee.avatarUrls || {};
-            //return `/api/image?url=${encodeURIComponent(avatarUrls['48x48'])}`;
+            // return `/api/image?url=${encodeURIComponent(avatarUrls['48x48'])}`;
         }
     },
     methods: {

@@ -114,7 +114,8 @@
             return this.assignee.name;
         },
         assigneeAvatar() {
-            const avatarUrls = this.assignee.avatarUrls || {};
+            const avatarUrls = this.assignee.avatarUrls;
+            if (!avatarUrls) return;
             return `/api/image?url=${encodeURIComponent(avatarUrls['48x48'])}`;
         }
     },

@@ -35,10 +35,13 @@ const store = new Vuex.Store({
             state.isCardPreview = false;
         },
         updateUser(state, user) {
-            state.users[user.userKey] = user;
+            state.users = {
+                ...state.users,
+                [user.userKey]: user
+            };
         },
-        removeUser(state, user) {
-            state.users[user.userKey] = undefined;
+        removeUser(state, userId) {
+            delete state.users[userId];
         }
     },
 
@@ -47,13 +50,15 @@ const store = new Vuex.Store({
             commit('updateCardPreview', getters.board.columns[column].issues[index]);
         },
         userChanged({ commit }, user) {
+            if (!user.userKey) return;
             commit('updateUser', user);
         },
         userAdded({ commit }, user) {
+            if (!user.userKey) return;
             commit('updateUser', user);
         },
-        userRemoved({ commit }, user) {
-            commit('removeUser', user);
+        userRemoved({ commit }, userId) {
+            commit('removeUser', userId);
         },
         updateRotation({ state }, rotation) {
             firebaseState.setUserRotation(state.userKey, rotation);
@@ -65,7 +70,8 @@ const store = new Vuex.Store({
     getters: {
         userKey: state => state.userKey,
         isCardPreview: state => state.isCardPreview,
-        currentCardPreview: state => state.currentCardPreview
+        currentCardPreview: state => state.currentCardPreview,
+        users: state => state.users
     }
 });
 
