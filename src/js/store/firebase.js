@@ -14,16 +14,61 @@ const config = {
   messagingSenderId: "224966352015"
 };
 
+function sanitizeFirebasePath(path) {
+    return path
+        .replace(/\./g, '%DOT%')
+        .replace(/#/g, '%HASH%')
+        .replace(/\$/g, '%DOLLAR%')
+        .replace(/\[/g, '%LBRACKET%')
+        .replace(/]/g, '%RBRACKET%')
+}
+
+function desanitizeFirebasePath(path) {
+    return path
+        .replace(/%DOT%/g, '.')
+        .replace(/%HASH%/g, '#')
+        .replace(/%DOLLAR%/g, '$')
+        .replace(/%LBRACKET%/g, '[')
+        .replace(/%RBRACKET%/g, ']')
+}
+
 firebase.initializeApp(config);
 
-const db = firebase.database();
+const db = firebase.database().ref('users');
 
-db.ref('rotation').once('value', (snapshot) => {
+function startFirebase(userKey) {
+  db.child(userKey).set({
+    
+  });
+  
+  db.on('child_added', snapshot => eventBus.$emit('user-added', snapshot.val()));  
+  db.on('child_removed', snapshot => eventBus.$emit('user-removed', snapshot.key));  
+  db.on('child_changed', snapshot => eventBus.$emit('user-changed', snapshot.val()));  
+}
+
+// From retros
+export async function setActiveUser(userName) {
+    firebase.database().ref('.info/connected').on('value', async snapshot => {
+        if (!snapshot.val()) {
+            return instanceRef && instanceRef.remove();
+        }
+
+        const activeUserRef = activeUsersRef.child(sanitizeFirebasePath(userName));
+        activeUserRef.update({ userName });
+
+        instanceRef = activeUserRef.child('instances').push();
+        await instanceRef.onDisconnect().remove();
+        instanceRef.set(true);
+    });
+}
+
+
+/*db.ref('rotation').once('value', (snapshot) => {
   eventBus.$emit('rotation', snapshot.val() || {});
 } );
 
 subscribeForRotation();
-
+*/
 export async function subscribeForRotation() {
   if (rotationRef) {
     rotationRef.off('value');

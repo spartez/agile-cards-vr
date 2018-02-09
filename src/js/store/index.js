@@ -9,7 +9,9 @@ const store = new Vuex.Store({
     state: {
         jiraKey: undefined,
         boardId: undefined,
-        cardPreview: 0,
+        userKey: "",
+        isCardPreview: 0,
+        currentCardPreview: {},
         rotation: "15 45 0"
     },
     mutations: {
@@ -19,25 +21,33 @@ const store = new Vuex.Store({
         SET_BOARD_ID(state, boardId) {
             state.boardId = boardId;
         },
+        SET_USER_KEY(state, userKey) {
+            state.userKey = userKey;
+        },
         updateRotation(state, value) {
             state.rotation = value;
         },
-        updateCardPreview(state, value) {
-            state.cardPreview = value;
+        updateCardPreview(state, card) {
+            state.isCardPreview = true;
+            state.currentCardPreview = card;
+        },
+        removeCardPreview(state) {
+            state.isCardPreview = false;
         }
     },
     
     actions: {
-        cardPreview({ commit }, card) {
-            commit('updateCardPreview', card);
+        cardPreview({ commit, getters }, {column, index}) {
+            commit('updateCardPreview', getters.board.columns[column].issues[index]);
         }
     },
     modules: {
         jira
     },
     getters: {
-        userRotation: state => state.rotation,
-        userCardPreview: state => state.cardPreview
+        userKey: state => state.userKey,
+        isCardPreview: state => state.isCardPreview,
+        currentCardPreview: state => state.currentCardPreview
     }
 });
 

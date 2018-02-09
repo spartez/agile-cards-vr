@@ -19,7 +19,14 @@
 
         <a-entity v-for="(column, index) in board.columns" :position="columnPosition(index)" :key="index">
             <text-label :text="column.name" width=".4" height=".1" background="#fff" color="#000" wrapCount="10"></text-label>
-            <card v-for="(issue, cardIndex) in column.issues" :position="cardPosition(cardIndex)" :issue="issue" :key="cardIndex"></card>
+            <card 
+                v-for="(issue, cardIndex) in column.issues" 
+                :position="cardPosition(cardIndex)" 
+                :issue="issue" 
+                :key="cardIndex"
+                :column="index"
+                :i="cardIndex"
+            ></card>
         </a-entity>
     </a-entity>
 </template>

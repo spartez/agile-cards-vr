@@ -13,7 +13,12 @@
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition: 0 5 4; shadow: true; shadowSize: 10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
         <a-camera user-height="0.4" :rotation="rotation">
-          <card v-if="userCardPreview" position="-0.15 -0.07 -0.2"></card>
+          <card 
+            v-if="isCardPreview"
+            position="0 -0.15 -0.31" 
+            rotation="-19.92 0 0"
+            :issue="currentCardPreview"
+          ></card>
           <a-cursor>
             <a-animation begin="click" easing="ease-in" attribute="scale" dur="150"
                fill="forwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
@@ -25,7 +30,7 @@
 
 <script>
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 import Board from './Board.vue';
 import Card from './Card.vue';
@@ -33,19 +38,19 @@ import Card from './Card.vue';
 export default {
     components: { Board, Card },
     computed: {
-      ...mapGetters(['board', 'userRotation', 'userCardPreview']),
+      ...mapGetters(['board', 'isCardPreview', 'currentCardPreview']),
 
       rotation() {
-        return this.userRotation;
+        return "0 0 0";//this.userRotation;
       }
     },
     methods: {
-        ...mapActions(['cardPreview']),
+        ...mapMutations(['removeCardPreview']),
         removePreviewCard(e) {
             if( e.target.nodeName !== "A-CURSOR" &&
                 e.target.nodeName !== "CANVAS" && 
                 !e.target.dataset.cardId ) {
-                this.cardPreview(0);
+                this.removeCardPreview();
             }
         }  
     }
