@@ -3,7 +3,7 @@
     :position="position">
     <a-entity 
       geometry="primitive: plane; height: 0.2; width: 0.2"
-      data-something="nice?"
+      :data-card-id="id"
       @click="cardClicked"
       :material="{color: 'white', opacity: 1}">
       <a-image
@@ -72,16 +72,19 @@
 <script>
   import {mapActions} from 'vuex';
   
+  
+  
   export default {
     props: [ 'position' ],
     data() {
       return {
-        key:"ACDC-199",
-        status: "bug",
-        assignee: "Victor Debone",
-        priority: "1",
-        title: "We cannot deliver so much in 24hrs, can we?",
-        description: "Select from one of A-Frame’s built-in fonts. These fonts will be loaded in from over a CDN. If you want your application to work better offline, download these fonts locally and point to them via a URL."
+        id: 1,
+        key:'ACDC-199',
+        status: 'bug',
+        assignee: 'Victor Debone',
+        priority: '1',
+        title: 'We cannot deliver so much in 24hrs, can we?',
+        description: 'Select from one of A-Frame’s built-in fonts. These fonts will be loaded in from over a CDN. If you want your application to work better offline, download these fonts locally and point to them via a URL.'
       }
     },
     methods: {
@@ -91,8 +94,8 @@
         return `value: ${text}; size: 0.01; height: 0.005`;
       },
       cardClicked(e) {
-        this.cardPreview(2);
-        console.log(e.detail.intersection.point);
+        console.log('card', this.id);
+        this.cardPreview(this.id);
       }
     }
     

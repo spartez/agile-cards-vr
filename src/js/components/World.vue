@@ -1,5 +1,5 @@
 <template>
-    <a-scene @click="removePreviewCard">
+    <a-scene cursor-card-listener @click.prevent="removePreviewCard">
         <a-assets>
             <img id="bg" src="../../img/360-2.jpg">
             <img id="task" src="../../img/task.svg">
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import '../../aframe/cursor-card-listener';
+
 import { mapGetters, mapActions } from 'vuex';
 
 import Board from './Board.vue';
@@ -67,8 +69,10 @@ export default {
     },
     methods: {
         ...mapActions(['cardPreview']),
-        removePreviewCard() {
-            if(!--this.userCardPreview) {
+        removePreviewCard(e) {
+            if( e.target.nodeName !== "A-CURSOR" &&
+                e.target.nodeName !== "CANVAS" && 
+                !e.target.dataset.cardId ) {
                 this.cardPreview(0);
             }
         },  
