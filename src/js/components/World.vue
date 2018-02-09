@@ -16,10 +16,10 @@
 
         <a-entity environment="preset: yavapai; dressingAmount: 500; skyColor: #983827; lightPosition: 0 5 4; shadow: true; shadowSize: 10"></a-entity>
         <a-entity light="intensity:0.2; color:#fff" position="0 4.47 5.085"></a-entity>
-        <a-camera user-height="0.4" :rotation="rotation">
-          <card 
+        <a-camera user-height="0.4" :rotation="rotation" @componentchanged="cameraChange">
+          <card
             v-if="isCardPreview"
-            position="0 -0.15 -0.31" 
+            position="0 -0.15 -0.31"
             rotation="-19.92 0 0"
             :issue="currentCardPreview"
           ></card>
@@ -38,7 +38,7 @@ import samuobj from "../../img/sonjen-daimyo.obj";
 import samumtl from "../../img/sonjen-daimyo.mtl";
 import diff from "../../img/diff.png";
 
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 import Board from './Board.vue';
 import Card from './Card.vue';
@@ -61,13 +61,19 @@ export default {
     },
     methods: {
         ...mapMutations(['removeCardPreview']),
+        ...mapActions(['updateRotation']),
+        cameraChange(e) {
+            if (e.detail.name !== 'rotation') { return; }
+            const rotation = e.target.getAttribute('rotation');
+            this.updateRotation(rotation);
+        },
         removePreviewCard(e) {
             if( e.target.nodeName !== "A-CURSOR" &&
-                e.target.nodeName !== "CANVAS" && 
+                e.target.nodeName !== "CANVAS" &&
                 !e.target.dataset.cardId ) {
                 this.removeCardPreview();
             }
-        }  
+        }
     }
 };
 </script>
